@@ -47,3 +47,26 @@ export async function trackComplaint(req, res) {
     return res.status(500).json({ error: "Server error" });
   }
 }
+
+
+export async function getUserStats(req, res) {
+  try {
+    const userId = req.user.id;
+
+    const total = await Complaint.countDocuments({ userId });
+    const resolved = await Complaint.countDocuments({
+      userId,
+      status: "resolved",
+    });
+    const pending = await Complaint.countDocuments({
+      userId,
+      status: { $ne: "resolved" },
+    });
+
+    res.json({ total, resolved, pending });
+  } catch (err) {
+    console.error("Stats error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+}
+
