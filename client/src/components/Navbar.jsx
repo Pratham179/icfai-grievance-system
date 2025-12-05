@@ -37,6 +37,9 @@ export default function Navbar() {
             <Link to="/dashboard" className="hover:underline">Dashboard</Link>
             <Link to="/file" className="hover:underline">File Complaint</Link>
             <Link to="/track" className="hover:underline">Track Complaint</Link>
+            <Link to="/faq" className="hover:underline">FAQ</Link>
+            <Link to="/timeline" className="hover:underline">Timeline</Link>
+
 
             {/* 🔥 Logout Button */}
             <button

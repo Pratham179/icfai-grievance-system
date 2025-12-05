@@ -6,6 +6,8 @@ import FileComplaint from "./pages/FileComplaint";
 import TrackComplaint from "./pages/TrackComplaint";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
+import FAQ from "./pages/FAQ";
+import Timeline from "./pages/Timeline";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
@@ -20,6 +22,9 @@ export default function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/timeline" element={<Timeline />} />
+
         
         <Route
           path="/dashboard"
