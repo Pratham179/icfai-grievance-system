@@ -56,6 +56,7 @@ export default function Navbar() {
               <Link className="hover:text-gray-300 transition" to="/track">
                 Track
               </Link>
+              <Link to="/posh" className="hover:text-gray-300 transition">POSH Act</Link>
 
               <Link className="hover:text-gray-300 transition" to="/faq">
                 FAQ

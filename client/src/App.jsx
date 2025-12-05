@@ -10,6 +10,10 @@ import FAQ from "./pages/FAQ";
 import Timeline from "./pages/Timeline";
 import Home from "./pages/Home";
 import RequestCall from "./pages/RequestCall";
+import POSH from "./pages/POSH";
+
+
+
 
 
 
@@ -29,6 +33,7 @@ export default function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/request-call" element={<RequestCall />} />
+        <Route path="/posh" element={<POSH />} />
 
 
 
