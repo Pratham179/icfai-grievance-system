@@ -26,40 +26,62 @@ export default function Login() {
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          name="email"
-          placeholder="Email"
-          className="w-full border p-2"
-          onChange={handleChange}
-        />
+      {/* Card */}
+      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
+        
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Welcome Back
+        </h2>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="w-full border p-2"
-          onChange={handleChange}
-        />
+        <p className="text-center text-gray-600 mb-6">
+          Login to continue to the ICFAI Grievance Portal
+        </p>
 
-        <button className="w-full bg-blue-600 text-white p-2 rounded">
-          Login
-        </button>
-      </form>
+        <form className="space-y-4" onSubmit={handleSubmit}>
 
-      {msg && <p className="mt-3 text-red-600">{msg}</p>}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Email</label>
+            <input
+              name="email"
+              placeholder="Enter your email"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
 
-      {/* 🔥 Signup Button Added */}
-      <div className="text-center mt-4">
-        <p className="text-sm">
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button className="w-full bg-[#1E3A8A] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition">
+  Login
+</button>
+
+
+        </form>
+
+        {msg && (
+          <p className="mt-4 text-center text-red-600 font-medium">
+            {msg}
+          </p>
+        )}
+
+        {/* Signup link */}
+        <p className="text-center mt-6 text-gray-700">
           Don't have an account?{" "}
-          <Link
-            to="/signup"
-            className="font-semibold text-blue-600 hover:underline"
-          >
+          <Link to="/signup" className="text-blue-600 font-semibold hover:underline">
             Register here
           </Link>
         </p>

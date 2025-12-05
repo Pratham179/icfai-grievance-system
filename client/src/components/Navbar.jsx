@@ -9,49 +9,72 @@ export default function Navbar() {
 
   const logout = async () => {
     try {
-      await api.post("/auth/logout"); // backend clears cookie
+      await api.post("/auth/logout");
     } catch (err) {
-      console.log("Logout error (ignored)", err);
+      console.log("Logout error", err);
     }
-
-    setUser(null);          // remove user from context
-    navigate("/login");     // redirect to login page
+    setUser(null);
+    navigate("/login");
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between">
-      <Link to="/" className="font-bold text-lg">
-        ICFAI Grievance System
-      </Link>
+    <nav className="bg-[#1E3A8A] text-white px-6 py-3 shadow-md">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
 
-      <div className="space-x-4 flex items-center">
-        {!user && (
-          <>
-            <Link to="/login" className="hover:underline">Login</Link>
-            <Link to="/signup" className="hover:underline">Signup</Link>
-          </>
-        )}
+        {/* LOGO / TITLE */}
+        <Link
+          to="/"
+          className="text-xl font-bold tracking-wide hover:text-gray-200 transition"
+        >
+          ICFAI Grievance Portal
+        </Link>
 
-        {user && (
-          <>
-            <Link to="/dashboard" className="hover:underline">Dashboard</Link>
-            <Link to="/file" className="hover:underline">File Complaint</Link>
-            <Link to="/track" className="hover:underline">Track Complaint</Link>
-            <Link to="/faq" className="hover:underline">FAQ</Link>
-            <Link to="/timeline" className="hover:underline">Timeline</Link>
-            {/* <Link to="/" className="hover:underline">Home</Link> */}
+        {/* LINKS */}
+        <div className="flex items-center gap-6 text-sm font-medium">
 
+          {!user && (
+            <>
+              <Link className="hover:text-gray-300 transition" to="/login">
+                Login
+              </Link>
+              <Link className="hover:text-gray-300 transition" to="/signup">
+                Signup
+              </Link>
+            </>
+          )}
 
+          {user && (
+            <>
+              <Link className="hover:text-gray-300 transition" to="/dashboard">
+                Dashboard
+              </Link>
 
-            {/* 🔥 Logout Button */}
-            <button
-              onClick={logout}
-              className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
-            >
-              Logout
-            </button>
-          </>
-        )}
+              <Link className="hover:text-gray-300 transition" to="/file">
+                File Complaint
+              </Link>
+
+              <Link className="hover:text-gray-300 transition" to="/track">
+                Track
+              </Link>
+
+              <Link className="hover:text-gray-300 transition" to="/faq">
+                FAQ
+              </Link>
+
+              <Link className="hover:text-gray-300 transition" to="/timeline">
+                Timeline
+              </Link>
+
+              {/* LOGOUT BUTTON */}
+              <button
+                onClick={logout}
+                className="bg-red-500 px-4 py-1.5 rounded-md hover:bg-red-600 transition text-white font-semibold"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

@@ -15,56 +15,76 @@ export default function Signup() {
     e.preventDefault();
     try {
       await api.post("/auth/signup", form);
-
-      // 🔥 SUCCESS → Redirect to login page
-      navigate("/login");
-
+      navigate("/login"); // redirect after success
     } catch (err) {
       setMsg(err.response?.data?.error || "Signup failed");
     }
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Signup</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder="Full Name"
-          className="w-full border p-2"
-          onChange={handleChange}
-        />
+      {/* CARD */}
+      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
 
-        <input
-          name="email"
-          placeholder="Email (@icfai.edu only)"
-          className="w-full border p-2"
-          onChange={handleChange}
-        />
+        <h2 className="text-3xl font-bold text-center mb-6">
+          Create Your Account
+        </h2>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="w-full border p-2"
-          onChange={handleChange}
-        />
+        <p className="text-center text-gray-600 mb-6">
+          Register using your official ICFAI email address.
+        </p>
 
-        <button className="w-full bg-green-600 text-white p-2 rounded">
-          Signup
-        </button>
-      </form>
+        <form className="space-y-4" onSubmit={handleSubmit}>
 
-      {msg && <p className="mt-3 text-red-600">{msg}</p>}
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Full Name</label>
+            <input
+              name="name"
+              placeholder="Your name"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-      <div className="text-center mt-4">
-        <p className="text-sm">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="font-semibold text-blue-600 hover:underline"
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Email</label>
+            <input
+              name="email"
+              placeholder="name@icfai.edu"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-1">Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button
+            className="w-full bg-[#1E3A8A] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition"
           >
+            Signup
+          </button>
+        </form>
+
+        {msg && (
+          <p className="mt-4 text-center text-red-600 font-medium">{msg}</p>
+        )}
+
+        <p className="text-center mt-6 text-gray-700">
+          Already have an account?{" "}
+          <Link to="/login" className="text-blue-600 font-semibold hover:underline">
             Login here
           </Link>
         </p>

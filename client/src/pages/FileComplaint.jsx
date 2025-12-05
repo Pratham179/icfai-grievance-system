@@ -35,128 +35,177 @@ export default function FileComplaint() {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="min-h-screen bg-gray-100 flex justify-center items-start p-6">
 
-      {/* 🔥 Declaration Modal */}
+      {/* DECLARATION POPUP */}
       {showDeclaration && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-8 rounded-2xl shadow-xl max-w-lg w-full relative">
 
             <button
-              className="absolute right-3 top-3 text-gray-600 text-xl"
+              className="absolute right-4 top-4 text-gray-600 text-xl hover:text-black"
               onClick={() => setShowDeclaration(false)}
             >
               ✕
             </button>
 
-            <h2 className="text-xl font-bold mb-4">Important</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center text-[#1E3A8A]">
+              Important Declaration
+            </h2>
 
-            <p className="font-semibold mb-2">Please read the following declaration carefully before proceeding.</p>
+            <p className="font-semibold mb-2">
+              Please read the declaration carefully before proceeding.
+            </p>
 
             <div className="space-y-3 text-gray-700 text-sm leading-relaxed">
-              <p><strong>Declaration:</strong> I understand that this portal is only for reporting grievances within ICFAI University.</p>
+              <p>
+                <strong>Declaration:</strong> This portal is to report genuine grievances under ICFAI University.
+              </p>
 
-              <p>I have read and understood the purpose of the system and agree to submit only genuine and truthful information.</p>
+              <p>
+                I understand that I must submit only correct, complete and truthful information.
+              </p>
 
-              <p>I acknowledge that all information provided in this form is accurate, complete, and not intentionally concealed or misrepresented.</p>
+              <p>
+                I acknowledge that no details have been concealed, misrepresented, or falsified.
+              </p>
             </div>
 
+            {/* CHECKBOX */}
             <div className="mt-4 flex items-center gap-2">
               <input
                 type="checkbox"
                 checked={agree}
                 onChange={() => setAgree(!agree)}
+                className="w-4 h-4"
               />
-              <label className="text-sm font-medium">
-                I have read and understood the declaration.
-              </label>
+              <label className="text-sm font-medium">I agree to the declaration</label>
             </div>
 
-            <div className="mt-6 flex justify-between">
+            {/* BUTTONS */}
+            <div className="mt-6 flex justify-end gap-3">
               <button
-                className={`px-4 py-2 rounded text-white ${
-                  agree ? "bg-blue-600" : "bg-gray-400 cursor-not-allowed"
-                }`}
-                disabled={!agree}
-                onClick={() => setShowDeclaration(false)}
-              >
-                Proceed
-              </button>
-
-              <button
-                className="px-4 py-2 rounded bg-gray-300"
+                className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
                 onClick={() => setShowDeclaration(false)}
               >
                 Close
               </button>
+
+              <button
+                disabled={!agree}
+                className={`px-4 py-2 rounded text-white ${
+                  agree ? "bg-blue-600 hover:bg-blue-700" : "bg-gray-400 cursor-not-allowed"
+                }`}
+                onClick={() => setShowDeclaration(false)}
+              >
+                Proceed
+              </button>
             </div>
 
           </div>
         </div>
       )}
 
-      <h2 className="text-3xl font-bold mb-6 text-center">
-        Grievance Redressal Form
-      </h2>
+      {/* MAIN FORM CARD */}
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
+        <h2 className="text-3xl font-bold mb-6 text-center text-[#1E3A8A]">
+          Grievance Redressal Form
+        </h2>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input className="w-full border p-2 rounded" placeholder="Your Name" onChange={(e) => setName(e.target.value)} />
+        <form className="space-y-4" onSubmit={handleSubmit}>
 
-        <input className="w-full border p-2 rounded" placeholder="Contact Number" onChange={(e) => setContact(e.target.value)} />
+          <input
+            className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            placeholder="Your Name"
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-        <input className="w-full border p-2 rounded" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+          <input
+            className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            placeholder="Contact Number"
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
 
-        <select className="w-full border p-2 rounded" onChange={(e) => setBranch(e.target.value)} defaultValue="">
-          <option value="" disabled>Select ICFAI Branch</option>
-          <option value="Hyderabad">ICFAI University, Hyderabad</option>
-          <option value="Dehradun">ICFAI University, Dehradun</option>
-          <option value="Jaipur">ICFAI University, Jaipur</option>
-          <option value="Tripura">ICFAI University, Tripura</option>
-          <option value="Sikkim">ICFAI University, Sikkim</option>
-          <option value="Jharkhand">ICFAI University, Jharkhand</option>
-          <option value="Raipur">ICFAI University, Raipur</option>
-          <option value="Mizoram">ICFAI University, Mizoram</option>
-        </select>
+          <input
+            className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <select className="w-full border p-2 rounded" onChange={(e) => setCategory(e.target.value)} defaultValue="">
-          <option value="" disabled>Select Complaint Category</option>
-          <option value="Academic Issue">Academic Issue</option>
-          <option value="Faculty Behaviour">Faculty Behaviour</option>
-          <option value="Harassment">Harassment</option>
-          <option value="POSH">POSH Related</option>
-          <option value="Hostel Issue">Hostel Issue</option>
-          <option value="Infrastructure">Infrastructure Problem</option>
-          <option value="Other">Other</option>
-        </select>
+          <select
+            className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            onChange={(e) => setBranch(e.target.value)}
+            required
+          >
+            <option value="">Select ICFAI Branch</option>
+            <option value="Hyderabad">ICFAI University, Hyderabad</option>
+            <option value="Dehradun">ICFAI University, Dehradun</option>
+            <option value="Jaipur">ICFAI University, Jaipur</option>
+            <option value="Tripura">ICFAI University, Tripura</option>
+            <option value="Sikkim">ICFAI University, Sikkim</option>
+            <option value="Jharkhand">ICFAI University, Jharkhand</option>
+            <option value="Raipur">ICFAI University, Raipur</option>
+            <option value="Mizoram">ICFAI University, Mizoram</option>
+          </select>
 
-        <textarea className="w-full border p-2 h-32 rounded" placeholder="Describe your issue" onChange={(e) => setComplaint(e.target.value)} />
+          <select
+            className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            onChange={(e) => setCategory(e.target.value)}
+            required
+          >
+            <option value="">Select Complaint Category</option>
+            <option value="Academic Issue">Academic Issue</option>
+            <option value="Faculty Behaviour">Faculty Behaviour</option>
+            <option value="Harassment">Harassment</option>
+            <option value="POSH">POSH Related</option>
+            <option value="Hostel Issue">Hostel Issue</option>
+            <option value="Infrastructure">Infrastructure Problem</option>
+            <option value="Other">Other</option>
+          </select>
 
-        <button className="w-full bg-green-600 text-white p-2 rounded">
-          Submit Complaint
-        </button>
-      </form>
+          <textarea
+            className="w-full border p-3 h-32 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+            placeholder="Describe your issue"
+            onChange={(e) => setComplaint(e.target.value)}
+            required
+          />
 
-      {trackId && (
-        <p className="mt-4 font-bold text-center">
-          Your Tracking ID: <span className="text-blue-600">{trackId}</span>
-        </p>
-      )}
+          <button className="w-full bg-[#1E3A8A] text-white p-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition">
+            Submit Complaint
+          </button>
+        </form>
 
-      {/* Submit Confirmation Popup */}
+        {trackId && (
+          <p className="mt-6 text-center text-lg font-bold">
+            Your Tracking ID:{" "}
+            <span className="text-blue-600">{trackId}</span>
+          </p>
+        )}
+      </div>
+
+      {/* SUBMISSION CONFIRM POPUP */}
       {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded shadow-lg w-80 text-center">
-            <h3 className="text-lg font-bold mb-4">Confirm Submission</h3>
-            <p className="mb-4">Are you sure you want to submit this complaint?</p>
+          <div className="bg-white p-6 rounded-xl shadow-lg w-80 text-center">
+            <h3 className="text-xl font-bold mb-3">Confirm Submission</h3>
+            <p className="mb-4 text-gray-700">Are you sure you want to submit this complaint?</p>
 
             <div className="flex justify-between">
-              <button onClick={() => setShowPopup(false)} className="bg-gray-400 px-4 py-2 rounded text-white">No</button>
+              <button onClick={() => setShowPopup(false)} className="bg-gray-400 px-4 py-2 rounded text-white">
+                No
+              </button>
 
-              <button onClick={submitComplaint} className="bg-green-600 px-4 py-2 rounded text-white">Yes, Submit</button>
+              <button onClick={submitComplaint} className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700">
+                Yes, Submit
+              </button>
             </div>
           </div>
         </div>
       )}
+
     </div>
   );
 }
