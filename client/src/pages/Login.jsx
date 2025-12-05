@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const { setUser } = useContext(AuthContext);
@@ -21,7 +21,7 @@ export default function Login() {
       setUser({ email: form.email });
       navigate("/dashboard");
     } catch (err) {
-      setMsg(err.response.data.error);
+      setMsg(err.response?.data?.error || "Login failed");
     }
   };
 
@@ -30,11 +30,20 @@ export default function Login() {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
-        <input name="email" placeholder="Email"
-          className="w-full border p-2" onChange={handleChange} />
+        <input
+          name="email"
+          placeholder="Email"
+          className="w-full border p-2"
+          onChange={handleChange}
+        />
 
-        <input name="password" type="password" placeholder="Password"
-          className="w-full border p-2" onChange={handleChange} />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="w-full border p-2"
+          onChange={handleChange}
+        />
 
         <button className="w-full bg-blue-600 text-white p-2 rounded">
           Login
@@ -42,6 +51,19 @@ export default function Login() {
       </form>
 
       {msg && <p className="mt-3 text-red-600">{msg}</p>}
+
+      {/* 🔥 Signup Button Added */}
+      <div className="text-center mt-4">
+        <p className="text-sm">
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
+            className="font-semibold text-blue-600 hover:underline"
+          >
+            Register here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
