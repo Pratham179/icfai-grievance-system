@@ -36,12 +36,20 @@ export async function signup(req, res) {
 
 
 // LOGIN
+// LOGIN
 export async function login(req, res) {
   try {
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;   // ⬅ also receive role from frontend
 
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ error: "Invalid credentials" });
+
+    // ⬅ NEW: role must match DB
+    if (user.role !== role) {
+      return res
+        .status(400)
+        .json({ error: `This account is registered as ${user.role}, not ${role}.` });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch)
@@ -59,7 +67,7 @@ export async function login(req, res) {
       message: "Login success",
       role: user.role,
       name: user.name,
-      email: user.email
+      email: user.email,
     });
   } catch (err) {
     console.log(err);
