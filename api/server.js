@@ -5,7 +5,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
-
+import supportRoutes from "./routes/supportRoutes.js";
 
 
 dotenv.config();
@@ -24,6 +24,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/complaints", complaintRoutes);
+app.use("/api/support", supportRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server running on " + process.env.PORT);

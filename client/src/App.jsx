@@ -9,6 +9,8 @@ import AdminPanel from "./pages/AdminPanel";
 import FAQ from "./pages/FAQ";
 import Timeline from "./pages/Timeline";
 import Home from "./pages/Home";
+import RequestCall from "./pages/RequestCall";
+
 
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -26,6 +28,8 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/timeline" element={<Timeline />} />
+        <Route path="/request-call" element={<RequestCall />} />
+
 
 
         
