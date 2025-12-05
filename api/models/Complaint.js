@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
 
-const complaintSchema = new mongoose.Schema({
+const ComplaintSchema = new mongoose.Schema({
   trackingId: String,
-  userId: mongoose.Schema.Types.ObjectId,
+  userId: String,
+  name: String,
+  contact: String,
+  email: String,
+  branch: String,
   category: String,
-  complaint: String,   // encrypted
+  complaint: String,
   status: { type: String, default: "open" },
-}, { timestamps: true });
+});
 
-export default mongoose.model("Complaint", complaintSchema);
+export default mongoose.model("Complaint", ComplaintSchema);
