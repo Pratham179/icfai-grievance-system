@@ -31,7 +31,6 @@ export async function fileComplaint(req, res) {
   }
 }
 
-// 🔥 ADD THIS
 export async function trackComplaint(req, res) {
   try {
     const complaint = await Complaint.findOne({ trackingId: req.params.id });
@@ -54,14 +53,8 @@ export async function getUserStats(req, res) {
     const userId = req.user.id;
 
     const total = await Complaint.countDocuments({ userId });
-    const resolved = await Complaint.countDocuments({
-      userId,
-      status: "resolved",
-    });
-    const pending = await Complaint.countDocuments({
-      userId,
-      status: { $ne: "resolved" },
-    });
+    const resolved = await Complaint.countDocuments({ userId, status: "resolved" });
+    const pending = await Complaint.countDocuments({ userId, status: "open" });
 
     res.json({ total, resolved, pending });
   } catch (err) {
