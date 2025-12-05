@@ -1,27 +1,38 @@
 import Complaint from "../models/Complaint.js";
 import generateTrackId from "../utils/generateTrackId.js";
-import { encrypt } from "../utils/encrypt.js";
 
 export async function fileComplaint(req, res) {
-  const { category, complaint } = req.body;
+  try {
+    const { category, complaint } = req.body;
 
-  const trackingId = generateTrackId();
+    const trackingId = generateTrackId();
 
-  await Complaint.create({
-    trackingId,
-    userId: req.user.id,
-    category,
-    complaint: encrypt(complaint),
-  });
+    await Complaint.create({
+      trackingId,
+      userId: req.user.id,
+      category,
+      complaint,  // <-- plain text
+      status: "open",
+    });
 
-  res.json({ trackingId });
+    return res.json({ trackingId });
+  } catch (err) {
+    console.error("Error filing complaint:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
 }
 
 export async function trackComplaint(req, res) {
-  const complaint = await Complaint.findOne({ trackingId: req.params.id });
+  try {
+    const complaint = await Complaint.findOne({ trackingId: req.params.id });
 
-  if (!complaint)
-    return res.status(404).json({ error: "Invalid tracking ID" });
+    if (!complaint) {
+      return res.status(404).json({ error: "Invalid tracking ID" });
+    }
 
-  res.json({ status: complaint.status });
+    return res.json({ status: complaint.status });
+  } catch (err) {
+    console.error("Error tracking complaint:", err);
+    return res.status(500).json({ error: "Server error" });
+  }
 }
