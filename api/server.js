@@ -6,8 +6,21 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import complaintRoutes from "./routes/complaintRoutes.js";
 
+
+
 dotenv.config();
 connectDB();
+
+console.log("DEBUG ENV =>", {
+  PORT: process.env.PORT,
+  SECRET_KEY: process.env.SECRET_KEY,
+  JWT_SECRET: process.env.JWT_SECRET,
+  MONGO_URI: process.env.MONGO_URI
+});
+
+// console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
+// console.log("Loaded JWT_SECRET:", process.env.JWT_SECRET);
+// console.log("Loaded MONGO URI:", process.env.MONGO_URI);
 
 const app = express();
 
