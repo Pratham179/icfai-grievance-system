@@ -20,8 +20,7 @@ export default function Navbar() {
   return (
     <nav className="bg-[#1E3A8A] text-white px-6 py-3 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-
-        {/* LOGO / TITLE */}
+        {/* LOGO */}
         <Link
           to="/"
           className="text-xl font-bold tracking-wide hover:text-gray-200 transition"
@@ -29,9 +28,9 @@ export default function Navbar() {
           ICFAI Grievance Portal
         </Link>
 
-        {/* LINKS */}
+        {/* NAV LINKS */}
         <div className="flex items-center gap-6 text-sm font-medium">
-
+          {/* When NOT logged in */}
           {!user && (
             <>
               <Link className="hover:text-gray-300 transition" to="/login">
@@ -43,28 +42,49 @@ export default function Navbar() {
             </>
           )}
 
+          {/* When logged in */}
           {user && (
             <>
-              <Link className="hover:text-gray-300 transition" to="/dashboard">
-                Dashboard
-              </Link>
+              {/* USER ONLY LINKS */}
+              {user.role === "user" && (
+                <>
+                  <Link
+                    className="hover:text-gray-300 transition"
+                    to="/dashboard"
+                  >
+                    Dashboard
+                  </Link>
+                  <Link className="hover:text-gray-300 transition" to="/file">
+                    File Complaint
+                  </Link>
+                  <Link className="hover:text-gray-300 transition" to="/track">
+                    Track
+                  </Link>
+                  <Link className="hover:text-gray-300 transition" to="/posh">
+                    POSH Act
+                  </Link>
+                  <Link className="hover:text-gray-300 transition" to="/faq">
+                    FAQ
+                  </Link>
+                  <Link
+                    className="hover:text-gray-300 transition"
+                    to="/timeline"
+                  >
+                    Timeline
+                  </Link>
+                </>
+              )}
 
-              <Link className="hover:text-gray-300 transition" to="/file">
-                File Complaint
-              </Link>
+              {/* ADMIN ONLY LINKS */}
+              {user.role === "admin" && (
+                <>
+                  <Link className="hover:text-gray-300 transition" to="/admin">
+                    Admin Panel
+                  </Link>
+                </>
+              )}
 
-              <Link className="hover:text-gray-300 transition" to="/track">
-                Track
-              </Link>
-              <Link to="/posh" className="hover:text-gray-300 transition">POSH Act</Link>
-
-              <Link className="hover:text-gray-300 transition" to="/faq">
-                FAQ
-              </Link>
-
-              <Link className="hover:text-gray-300 transition" to="/timeline">
-                Timeline
-              </Link>
+              {/* COMMON LINKS FOR ALL LOGGED USERS */}
 
               {/* LOGOUT BUTTON */}
               <button

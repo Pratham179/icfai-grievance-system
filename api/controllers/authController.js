@@ -2,36 +2,67 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// SIGNUP
 export async function signup(req, res) {
-  const { name, email, password } = req.body;
+  try {
+    const { name, email, password, role } = req.body;
 
-  if (!email.endsWith("@icfai.edu")) {
-    return res.status(400).json({ error: "Use institute email only" });
+    // Default role is "user" unless explicitly sent
+    const userRole = role === "admin" ? "admin" : "user";
+
+    // Check if user already exists
+    const exists = await User.findOne({ email });
+    if (exists) {
+      return res.status(400).json({ error: "Email already registered" });
+    }
+
+    // Create user
+    const hashed = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      name,
+      email,
+      password: hashed,
+      role: userRole,     // <-- IMPORTANT
+    });
+
+    res.json({ message: "Signup successful", role: user.role });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
-
-  const hashed = await bcrypt.hash(password, 10);
-
-  const user = await User.create({ name, email, password: hashed });
-
-  res.json({ message: "Signup successful" });
 }
 
+
+// LOGIN
 export async function login(req, res) {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) return res.status(400).json({ error: "Invalid credentials" });
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ error: "Invalid credentials" });
 
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) return res.status(400).json({ error: "Invalid credentials" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(400).json({ error: "Invalid credentials" });
 
-  const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-  });
+    res.cookie("token", token, { httpOnly: true });
 
-  res.json({ message: "Login successful" });
+    return res.json({
+      message: "Login success",
+      role: user.role,
+      name: user.name,
+      email: user.email
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Server error" });
+  }
 }

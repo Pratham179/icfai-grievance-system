@@ -7,7 +7,12 @@ export default function Login() {
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    role: "user"
+  });
+
   const [msg, setMsg] = useState("");
 
   const handleChange = e => {
@@ -17,8 +22,13 @@ export default function Login() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await api.post("/auth/login", form);
-      setUser({ email: form.email });
+      const res = await api.post("/auth/login", form);
+
+      setUser({
+        email: form.email,
+        role: res.data.role
+      });
+
       navigate("/dashboard");
     } catch (err) {
       setMsg(err.response?.data?.error || "Login failed");
@@ -26,65 +36,57 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md border">
 
-      {/* Card */}
-      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
-        
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Welcome Back
+        <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
+          Login
         </h2>
 
-        <p className="text-center text-gray-600 mb-6">
-          Login to continue to the ICFAI Grievance Portal
-        </p>
-
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            name="email"
+            placeholder="Email"
+            className="w-full border p-2 rounded"
+            onChange={handleChange}
+            required
+          />
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
-            <input
-              name="email"
-              placeholder="Enter your email"
-              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="w-full border p-2 rounded"
+            onChange={handleChange}
+            required
+          />
 
-              onChange={handleChange}
-              required
-            />
-          </div>
+          {/* ROLE SELECT */}
+          <select
+            name="role"
+            className="w-full border p-2 rounded bg-white"
+            onChange={handleChange}
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin (IC Committee Only)</option>
+          </select>
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button className="w-full bg-[#1E3A8A] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition">
-  Login
-</button>
-
-
+          <button className="w-full bg-blue-700 hover:bg-blue-800 text-white p-2 rounded font-semibold">
+            Login
+          </button>
         </form>
 
-        {msg && (
-          <p className="mt-4 text-center text-red-600 font-medium">
-            {msg}
-          </p>
-        )}
+        {msg && <p className="mt-3 text-red-600 text-center">{msg}</p>}
 
-        {/* Signup link */}
-        <p className="text-center mt-6 text-gray-700">
-          Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-600 font-semibold hover:underline">
-            Register here
-          </Link>
-        </p>
+        <div className="text-center mt-4">
+          <p className="text-sm">
+            Don't have an account?{" "}
+            <Link to="/signup" className="font-semibold text-blue-600 hover:underline">
+              Register here
+            </Link>
+          </p>
+        </div>
+
       </div>
     </div>
   );

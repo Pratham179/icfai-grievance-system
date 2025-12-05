@@ -4,90 +4,88 @@ import { useNavigate, Link } from "react-router-dom";
 
 export default function Signup() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "user"
+  });
+
   const [msg, setMsg] = useState("");
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await api.post("/auth/signup", form);
-      navigate("/login"); // redirect after success
+      navigate("/login"); // redirect on success
     } catch (err) {
       setMsg(err.response?.data?.error || "Signup failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md border">
 
-      {/* CARD */}
-      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
-
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Create Your Account
+        <h2 className="text-3xl font-bold text-center mb-6 text-green-700">
+          Create Account
         </h2>
 
-        <p className="text-center text-gray-600 mb-6">
-          Register using your official ICFAI email address.
-        </p>
-
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            name="name"
+            placeholder="Full Name"
+            className="w-full border p-2 rounded"
+            onChange={handleChange}
+            required
+          />
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Full Name</label>
-            <input
-              name="name"
-              placeholder="Your name"
-              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            name="email"
+            placeholder="Email (@icfai.edu)"
+            className="w-full border p-2 rounded"
+            onChange={handleChange}
+            required
+          />
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Email</label>
-            <input
-              name="email"
-              placeholder="name@icfai.edu"
-              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            className="w-full border p-2 rounded"
+            onChange={handleChange}
+            required
+          />
 
-          <div>
-            <label className="block text-gray-700 font-medium mb-1">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Create a password"
-              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <button
-            className="w-full bg-[#1E3A8A] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition"
+          {/* ROLE SELECT */}
+          <select
+            name="role"
+            className="w-full border p-2 rounded bg-white"
+            onChange={handleChange}
           >
+            <option value="user">User</option>
+            <option value="admin">Admin (IC Committee Only)</option>
+          </select>
+
+          <button className="w-full bg-green-700 hover:bg-green-800 text-white p-2 rounded font-semibold">
             Signup
           </button>
         </form>
 
-        {msg && (
-          <p className="mt-4 text-center text-red-600 font-medium">{msg}</p>
-        )}
+        {msg && <p className="mt-3 text-red-600 text-center">{msg}</p>}
 
-        <p className="text-center mt-6 text-gray-700">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 font-semibold hover:underline">
-            Login here
-          </Link>
-        </p>
+        <div className="text-center mt-4">
+          <p className="text-sm">
+            Already have an account?{" "}
+            <Link to="/login" className="font-semibold text-blue-600 hover:underline">
+              Login here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
