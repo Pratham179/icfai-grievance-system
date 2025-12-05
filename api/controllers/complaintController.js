@@ -50,15 +50,13 @@ export async function trackComplaint(req, res) {
 
 export async function getUserStats(req, res) {
   try {
-    const userId = req.user.id;
-
-    const total = await Complaint.countDocuments({ userId });
-    const resolved = await Complaint.countDocuments({ userId, status: "resolved" });
-    const pending = await Complaint.countDocuments({ userId, status: "open" });
+    const total = await Complaint.countDocuments({});
+    const resolved = await Complaint.countDocuments({ status: "resolved" });
+    const pending = await Complaint.countDocuments({ status: "pending" });
 
     res.json({ total, resolved, pending });
   } catch (err) {
-    console.error("Stats error:", err);
+    console.error("Error fetching stats:", err);
     res.status(500).json({ error: "Server error" });
   }
 }
