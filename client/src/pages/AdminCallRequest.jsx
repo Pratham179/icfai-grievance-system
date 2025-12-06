@@ -15,52 +15,88 @@ export default function AdminCallRequests() {
 
   async function updateStatus(id, status) {
     await api.put(`/admin/call-requests/${id}`, { status });
-    fetchRequests(); // refresh list
+    fetchRequests();
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Call Requests</h1>
+    <div className="min-h-screen bg-gray-100 px-6 py-10 flex justify-center">
+      <div className="w-full max-w-5xl">
 
-      {requests.length === 0 && (
-        <p className="text-gray-600">No call requests yet.</p>
-      )}
+        <h1 className="text-3xl font-bold mb-8 text-[#1E3A8A]">
+          Call Requests Management
+        </h1>
 
-      <div className="space-y-4">
-        {requests.map(req => (
-          <div key={req._id} className="border p-4 rounded shadow bg-white">
-            <p><b>Name:</b> {req.name}</p>
-            <p><b>Contact:</b> {req.contact}</p>
-            <p><b>Preferred Time:</b> {req.preferredTime}</p>
-            <p><b>Reason:</b> {req.reason || "—"}</p>
-            <p>
-              <b>Status:</b>{" "}
-              <span className={req.status === "completed" ? "text-green-600" : "text-yellow-600"}>
-                {req.status}
-              </span>
-            </p>
-
-            <div className="mt-3 flex gap-2">
-              {req.status !== "completed" && (
-                <button
-                  onClick={() => updateStatus(req._id, "completed")}
-                  className="bg-green-600 text-white px-3 py-1 rounded"
-                >
-                  Mark Completed
-                </button>
-              )}
-
-              {req.status !== "pending" && (
-                <button
-                  onClick={() => updateStatus(req._id, "pending")}
-                  className="bg-yellow-600 text-white px-3 py-1 rounded"
-                >
-                  Mark Pending
-                </button>
-              )}
-            </div>
+        {/* No Requests */}
+        {requests.length === 0 && (
+          <div className="bg-white border rounded-xl shadow p-6 text-center text-gray-600">
+            No call requests received yet.
           </div>
-        ))}
+        )}
+
+        {/* Request List */}
+        <div className="space-y-6">
+          {requests.map((req) => (
+            <div
+              key={req._id}
+              className="bg-white border rounded-xl shadow-md p-6 hover:shadow-lg transition"
+            >
+              {/* Header */}
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {req.name}
+                </h2>
+
+                <span
+                  className={`px-3 py-1 text-sm rounded-full font-semibold 
+                    ${
+                      req.status === "completed"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-yellow-100 text-yellow-700"
+                    }
+                  `}
+                >
+                  {req.status.toUpperCase()}
+                </span>
+              </div>
+
+              {/* Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
+                <p>
+                  <span className="font-medium">Contact:</span> {req.contact}
+                </p>
+                <p>
+                  <span className="font-medium">Preferred Time:</span>{" "}
+                  {req.preferredTime}
+                </p>
+                <p className="sm:col-span-2">
+                  <span className="font-medium">Reason:</span>{" "}
+                  {req.reason || "—"}
+                </p>
+              </div>
+
+              {/* Buttons */}
+              <div className="mt-6 flex gap-3">
+                {req.status !== "completed" && (
+                  <button
+                    onClick={() => updateStatus(req._id, "completed")}
+                    className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition"
+                  >
+                    Mark Completed
+                  </button>
+                )}
+
+                {req.status !== "pending" && (
+                  <button
+                    onClick={() => updateStatus(req._id, "pending")}
+                    className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md transition"
+                  >
+                    Mark Pending
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -22,81 +22,96 @@ export default function RequestCall() {
         reason,
       });
 
-      setMsg(
-        "Your request has been submitted. A committee member will contact you soon."
-      );
+      setMsg("Your request has been submitted. A committee member will contact you soon.");
 
-      // Clear form
       setName("");
       setContact("");
       setPreferredTime("");
       setReason("");
     } catch (err) {
-      setMsg(
-        err?.response?.data?.error ||
-          "Unable to submit request right now. Please try again later."
-      );
+      setMsg(err?.response?.data?.error || "Unable to submit request. Please try again later.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-3xl font-bold mb-4 text-center">
-        Request a Confidential Call
-      </h2>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4">
+      <div className="w-full max-w-xl bg-white p-10 rounded-xl shadow-md border">
 
-      <p className="text-gray-700 text-sm mb-6 text-center">
-        Use this option if you want to talk to a designated member before
-        filing a formal complaint. This is for discussion and guidance only.
-      </p>
+        {/* TITLE */}
+        <h2 className="text-3xl font-bold text-center mb-8 text-[#1E3A8A]">
+          Request a Confidential Call
+        </h2>
 
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <input
-          className="w-full border p-2 rounded"
-          placeholder="Your Name"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
-
-        <input
-          className="w-full border p-2 rounded"
-          placeholder="Contact Number"
-          value={contact}
-          onChange={e => setContact(e.target.value)}
-          required
-        />
-
-        <input
-          className="w-full border p-2 rounded"
-          placeholder="Preferred Time (e.g. 5–7 PM)"
-          value={preferredTime}
-          onChange={e => setPreferredTime(e.target.value)}
-          required
-        />
-
-        <textarea
-          className="w-full border p-2 h-28 rounded"
-          placeholder="Briefly describe what you want to discuss (optional but helpful)"
-          value={reason}
-          onChange={e => setReason(e.target.value)}
-        />
-
-        <button
-          className="w-full bg-blue-600 text-white p-2 rounded disabled:opacity-60"
-          disabled={loading}
-        >
-          {loading ? "Submitting..." : "Submit Request"}
-        </button>
-      </form>
-
-      {msg && (
-        <p className="mt-4 text-center text-sm text-green-700 font-medium">
-          {msg}
+        <p className="text-gray-600 text-center text-sm mb-8 leading-relaxed">
+          Speak privately with a designated committee member.  
+          No formal complaint is created unless you choose to proceed.
         </p>
-      )}
+
+        {/* FORM */}
+        <form className="space-y-5" onSubmit={handleSubmit}>
+
+          <div>
+            <label className="text-sm text-gray-700 font-medium">Your Name</label>
+            <input
+              className="w-full border p-2 rounded mt-1"
+              placeholder="Enter your name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-700 font-medium">Contact Number</label>
+            <input
+              className="w-full border p-2 rounded mt-1"
+              placeholder="Enter contact number"
+              value={contact}
+              onChange={e => setContact(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-700 font-medium">Preferred Time</label>
+            <input
+              className="w-full border p-2 rounded mt-1"
+              placeholder="e.g. 5–7 PM"
+              value={preferredTime}
+              onChange={e => setPreferredTime(e.target.value)}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-700 font-medium">Discussion Reason (Optional)</label>
+            <textarea
+              className="w-full border p-2 rounded mt-1 h-28"
+              placeholder="Briefly describe what you want to discuss"
+              value={reason}
+              onChange={e => setReason(e.target.value)}
+            />
+          </div>
+
+          {/* BUTTON */}
+          <button
+            className="w-full bg-[#1E3A8A] hover:bg-blue-900 text-white p-2 rounded font-semibold transition"
+            disabled={loading}
+          >
+            {loading ? "Submitting..." : "Submit Request"}
+          </button>
+        </form>
+
+        {/* MESSAGE */}
+        {msg && (
+          <p className="mt-6 text-center text-green-700 text-sm font-medium">
+            {msg}
+          </p>
+        )}
+
+      </div>
     </div>
   );
 }

@@ -21,71 +21,88 @@ export default function Signup() {
     e.preventDefault();
     try {
       await api.post("/auth/signup", form);
-      navigate("/login"); // redirect on success
+      navigate("/login");
     } catch (err) {
       setMsg(err.response?.data?.error || "Signup failed");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md border">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4">
+      <div className="w-full max-w-md bg-white border rounded-xl p-8 shadow-sm">
 
-        <h2 className="text-3xl font-bold text-center mb-6 text-green-700">
-          Create Account
+        {/* TITLE */}
+        <h2 className="text-3xl font-bold text-center mb-8 text-[#1E3A8A]">
+          Create Your Account
         </h2>
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <input
-            name="name"
-            placeholder="Full Name"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+        {/* FORM */}
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          
+          <div>
+            <label className="text-sm font-medium text-gray-700">Full Name</label>
+            <input
+              name="name"
+              placeholder="Enter full name"
+              className="w-full border p-2 rounded mt-1"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <input
-            name="email"
-            placeholder="Email (@icfai.edu)"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+          <div>
+            <label className="text-sm font-medium text-gray-700">Email</label>
+            <input
+              name="email"
+              placeholder="Email (@icfai.edu only)"
+              className="w-full border p-2 rounded mt-1"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            className="w-full border p-2 rounded"
-            onChange={handleChange}
-            required
-          />
+          <div>
+            <label className="text-sm font-medium text-gray-700">Password</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              className="w-full border p-2 rounded mt-1"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          {/* ROLE SELECT */}
-          <select
-            name="role"
-            className="w-full border p-2 rounded bg-white"
-            onChange={handleChange}
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin (IC Committee Only)</option>
-          </select>
+          <div>
+            <label className="text-sm font-medium text-gray-700">Register as</label>
+            <select
+              name="role"
+              className="w-full border p-2 rounded mt-1 bg-white"
+              onChange={handleChange}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin (IC Committee Only)</option>
+            </select>
+          </div>
 
-          <button className="w-full bg-green-700 hover:bg-green-800 text-white p-2 rounded font-semibold">
+          <button className="w-full bg-[#1E3A8A] hover:bg-blue-900 text-white p-2 rounded font-semibold transition">
             Signup
           </button>
         </form>
 
-        {msg && <p className="mt-3 text-red-600 text-center">{msg}</p>}
+        {/* ERROR MESSAGE */}
+        {msg && <p className="mt-4 text-center text-red-600 text-sm">{msg}</p>}
 
-        <div className="text-center mt-4">
-          <p className="text-sm">
+        {/* FOOTER */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-700">
             Already have an account?{" "}
-            <Link to="/login" className="font-semibold text-blue-600 hover:underline">
+            <Link to="/login" className="text-blue-700 font-semibold hover:underline">
               Login here
             </Link>
           </p>
         </div>
+
       </div>
     </div>
   );
