@@ -15,6 +15,7 @@ import POSH from "./pages/POSH";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import AdminCallRequest from "./pages/AdminCallRequest";
+import Footer from "./components/Footer";
 
 
 export default function App() {
@@ -63,6 +64,7 @@ export default function App() {
           }
         />
       </Routes>
+       <Footer /> 
     </BrowserRouter>
   );
 }
