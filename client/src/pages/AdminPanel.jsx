@@ -60,7 +60,6 @@ export default function AdminPanel() {
                   )}
                 </td>
 
-                {/* STATUS BADGE */}
                 <td className="p-3">
                   <span
                     className={`px-3 py-1 rounded-full text-white text-xs ${
@@ -75,7 +74,6 @@ export default function AdminPanel() {
                   </span>
                 </td>
 
-                {/* ACTIONS */}
                 <td className="p-3 flex gap-2">
                   <button
                     onClick={() => setSelected(c)}
@@ -131,6 +129,27 @@ export default function AdminPanel() {
               </p>
 
               <p><strong>Tracking ID:</strong> {selected.trackingId}</p>
+
+              {/* DOCUMENTS SECTION */}
+              {selected.attachments?.length > 0 && (
+                <div className="mt-4">
+                  <p className="font-semibold mb-2">Uploaded Documents:</p>
+                  <ul className="space-y-2">
+                    {selected.attachments.map((file, index) => (
+                      <li key={index}>
+                        <a
+                          href={`http://localhost:5000/${file.filePath}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline hover:text-blue-800"
+                        >
+                          {file.fileName}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             <button

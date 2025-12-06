@@ -3,13 +3,22 @@ import generateTrackId from "../utils/generateTrackId.js";
 
 export async function fileComplaint(req, res) {
   try {
-    const { name, contact, email, branch,incidentDate,  category, complaint } = req.body;
-
-    if (!name || !contact || !email || !branch || !category || !complaint) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+    const {
+      name,
+      contact,
+      email,
+      branch,
+      incidentDate,
+      category,
+      complaint
+    } = req.body;
 
     const trackingId = generateTrackId();
+
+    const attachments = req.files?.map(file => ({
+      fileName: file.originalname,
+      filePath: file.path
+    })) || [];
 
     await Complaint.create({
       trackingId,
@@ -18,19 +27,21 @@ export async function fileComplaint(req, res) {
       contact,
       email,
       branch,
-      incidentDate, 
+      incidentDate,
       category,
       complaint,
+      attachments,     // <-- SAVE FILES
       status: "open",
     });
 
-    return res.json({ trackingId });
+    res.json({ trackingId });
 
   } catch (err) {
     console.error("Error filing complaint:", err);
     return res.status(500).json({ error: "Server error" });
   }
 }
+
 
 export async function trackComplaint(req, res) {
   try {

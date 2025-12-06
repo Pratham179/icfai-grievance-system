@@ -6,30 +6,47 @@ export default function FileComplaint() {
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [branch, setBranch] = useState("");
-  const [incidentDate, setIncidentDate] = useState(""); // <-- NEW FIELD
+  const [incidentDate, setIncidentDate] = useState("");
   const [category, setCategory] = useState("");
   const [complaint, setComplaint] = useState("");
   const [trackId, setTrackId] = useState("");
+  const [files, setFiles] = useState([]); // <-- NEW
 
   const [showDeclaration, setShowDeclaration] = useState(true);
   const [agree, setAgree] = useState(false);
 
   const [showPopup, setShowPopup] = useState(false);
 
-  const submitComplaint = async () => {
-    const res = await api.post("/complaints/file", {
-      name,
-      contact,
-      email,
-      branch,
-      incidentDate,   // <-- SEND TO BACKEND
-      category,
-      complaint,
-    });
+  // -------------------------
+  // SUBMIT FINAL COMPLAINT
+  // -------------------------
+ const submitComplaint = async () => {
+  const formData = new FormData();
 
-    setTrackId(res.data.trackingId);
-    setShowPopup(false);
-  };
+  formData.append("name", name);
+  formData.append("contact", contact);
+  formData.append("email", email);
+  formData.append("branch", branch);
+  formData.append("incidentDate", incidentDate);
+  formData.append("category", category);
+  formData.append("complaint", complaint);
+
+  // IMPORTANT: Attach files
+  for (let i = 0; i < files.length; i++) {
+    formData.append("attachments", files[i]);
+  }
+
+  const res = await api.post("/complaints/file", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  setTrackId(res.data.trackingId);
+  setShowPopup(false);
+};
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -179,6 +196,20 @@ export default function FileComplaint() {
             required
           />
 
+          {/* FILE UPLOAD */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">
+              Upload Supporting Documents (PDF/JPG/PNG)
+            </label>
+            <input
+              type="file"
+              multiple
+              accept=".pdf,.jpg,.jpeg,.png"
+              onChange={(e) => setFiles(e.target.files)}
+              className="w-full border p-3 rounded-md"
+            />
+          </div>
+
           <button className="w-full bg-[#1E3A8A] text-white p-3 rounded-md text-lg font-semibold hover:bg-[#1E40AF] transition">
             Submit Complaint
           </button>
@@ -186,8 +217,7 @@ export default function FileComplaint() {
 
         {trackId && (
           <p className="mt-6 text-center text-lg font-bold">
-            Your Tracking ID:{" "}
-            <span className="text-blue-600">{trackId}</span>
+            Your Tracking ID: <span className="text-blue-600">{trackId}</span>
           </p>
         )}
       </div>

@@ -9,6 +9,13 @@ const ComplaintSchema = new mongoose.Schema({
   branch: String,
   incidentDate: { type: String, required: true }, 
   category: String,
+  attachments: [
+  {
+    fileName: String,
+    filePath: String
+  }
+],
+
   complaint: String,
   status: { type: String, default: "open" },
 });
