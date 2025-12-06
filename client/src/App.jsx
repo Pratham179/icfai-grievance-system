@@ -12,13 +12,10 @@ import Home from "./pages/Home";
 import RequestCall from "./pages/RequestCall";
 import POSH from "./pages/POSH";
 
-
-
-
-
-
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import AdminCallRequest from "./pages/AdminCallRequest";
+
 
 export default function App() {
   return (
@@ -35,9 +32,6 @@ export default function App() {
         <Route path="/request-call" element={<RequestCall />} />
         <Route path="/posh" element={<POSH />} />
 
-
-
-        
         <Route
           path="/dashboard"
           element={
@@ -60,6 +54,14 @@ export default function App() {
 
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
+        <Route
+          path="/admin/call-requests"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <AdminCallRequest />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

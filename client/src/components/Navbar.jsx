@@ -68,7 +68,8 @@ export default function Navbar() {
                   </Link>
                   <Link
                     className="hover:text-gray-300 transition"
-                    to="/timeline">
+                    to="/timeline"
+                  >
                     Timeline
                   </Link>
                 </>
@@ -77,8 +78,17 @@ export default function Navbar() {
               {/* ADMIN ONLY LINKS */}
               {user.role === "admin" && (
                 <>
-                  <Link className="hover:text-gray-300 transition" to="/admin-panel">
+                  <Link
+                    className="hover:text-gray-300 transition"
+                    to="/admin-panel"
+                  >
                     Admin Panel
+                  </Link>
+                  <Link
+                    to="/admin/call-requests"
+                    className="hover:text-gray-300 transition"
+                  >
+                    Call Requests
                   </Link>
                 </>
               )}
