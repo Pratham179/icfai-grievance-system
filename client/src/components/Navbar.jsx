@@ -54,6 +54,13 @@ export default function Navbar() {
                   >
                     Dashboard
                   </Link>
+                  <Link
+                    to="/request-call"
+                    className="hover:text-gray-300 transition"
+                  >
+                    Request Call
+                  </Link>
+
                   <Link className="hover:text-gray-300 transition" to="/file">
                     File Complaint
                   </Link>
