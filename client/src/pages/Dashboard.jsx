@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { ChartBarIcon, CheckCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { ChartBarIcon, CheckCircleIcon, ArrowPathIcon } from "@heroicons/react/24/solid";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
     total: 0,
     resolved: 0,
-    pending: 0,
+    inProgress: 0,
   });
 
   useEffect(() => {
@@ -53,13 +53,13 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Pending */}
-          <div className="bg-gradient-to-br from-yellow-400 to-yellow-600 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
+          {/* In Progress */}
+          <div className="bg-gradient-to-br from-yellow-500 to-yellow-700 text-white p-6 rounded-xl shadow-lg transform hover:scale-105 transition duration-300">
             <div className="flex items-center gap-4">
-              <ExclamationTriangleIcon className="h-12 w-12 opacity-80" />
+              <ArrowPathIcon className="h-12 w-12 opacity-80" />
               <div>
-                <h2 className="text-4xl font-bold">{stats.pending}</h2>
-                <p className="text-sm opacity-90">Pending</p>
+                <h2 className="text-4xl font-bold">{stats.inProgress}</h2>
+                <p className="text-sm opacity-90">In Progress</p>
               </div>
             </div>
           </div>

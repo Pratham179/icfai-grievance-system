@@ -34,10 +34,20 @@ export async function updateComplaintStatus(req, res) {
     const { id } = req.params;
     const { status } = req.body;
 
-    await Complaint.findByIdAndUpdate(id, { status });
-    res.json({ message: "Status updated" });
+    const updated = await Complaint.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ error: "Complaint not found" });
+    }
+
+    res.json({ message: "Status updated", complaint: updated });
+
   } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 }
