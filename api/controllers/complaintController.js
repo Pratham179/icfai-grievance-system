@@ -3,7 +3,7 @@ import generateTrackId from "../utils/generateTrackId.js";
 
 export async function fileComplaint(req, res) {
   try {
-    const { name, contact, email, branch, category, complaint } = req.body;
+    const { name, contact, email, branch,incidentDate,  category, complaint } = req.body;
 
     if (!name || !contact || !email || !branch || !category || !complaint) {
       return res.status(400).json({ error: "All fields are required" });
@@ -18,6 +18,7 @@ export async function fileComplaint(req, res) {
       contact,
       email,
       branch,
+      incidentDate, 
       category,
       complaint,
       status: "open",

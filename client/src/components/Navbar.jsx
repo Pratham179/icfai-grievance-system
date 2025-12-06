@@ -89,7 +89,7 @@ export default function Navbar() {
                     className="hover:text-gray-300 transition"
                     to="/admin-panel"
                   >
-                    Admin Panel
+                    View Complaints
                   </Link>
                   <Link
                     to="/admin/call-requests"

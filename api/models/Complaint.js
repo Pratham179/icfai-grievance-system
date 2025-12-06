@@ -7,6 +7,7 @@ const ComplaintSchema = new mongoose.Schema({
   contact: String,
   email: String,
   branch: String,
+  incidentDate: { type: String, required: true }, 
   category: String,
   complaint: String,
   status: { type: String, default: "open" },

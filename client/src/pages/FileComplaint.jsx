@@ -6,6 +6,7 @@ export default function FileComplaint() {
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [branch, setBranch] = useState("");
+  const [incidentDate, setIncidentDate] = useState(""); // <-- NEW FIELD
   const [category, setCategory] = useState("");
   const [complaint, setComplaint] = useState("");
   const [trackId, setTrackId] = useState("");
@@ -21,6 +22,7 @@ export default function FileComplaint() {
       contact,
       email,
       branch,
+      incidentDate,   // <-- SEND TO BACKEND
       category,
       complaint,
     });
@@ -58,20 +60,11 @@ export default function FileComplaint() {
             </p>
 
             <div className="space-y-3 text-gray-700 text-sm leading-relaxed">
-              <p>
-                <strong>Declaration:</strong> This portal is to report genuine grievances under ICFAI University.
-              </p>
-
-              <p>
-                I understand that I must submit only correct, complete and truthful information.
-              </p>
-
-              <p>
-                I acknowledge that no details have been concealed, misrepresented, or falsified.
-              </p>
+              <p><strong>Declaration:</strong> This portal is to report genuine grievances under ICFAI University.</p>
+              <p>I understand that I must submit only correct, complete and truthful information.</p>
+              <p>I acknowledge that no details have been concealed, misrepresented, or falsified.</p>
             </div>
 
-            {/* CHECKBOX */}
             <div className="mt-4 flex items-center gap-2">
               <input
                 type="checkbox"
@@ -82,7 +75,6 @@ export default function FileComplaint() {
               <label className="text-sm font-medium">I agree to the declaration</label>
             </div>
 
-            {/* BUTTONS */}
             <div className="mt-6 flex justify-end gap-3">
               <button
                 className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
@@ -106,7 +98,7 @@ export default function FileComplaint() {
         </div>
       )}
 
-      {/* MAIN FORM CARD */}
+      {/* MAIN FORM */}
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
         <h2 className="text-3xl font-bold mb-6 text-center text-[#1E3A8A]">
           Grievance Redressal Form
@@ -134,6 +126,20 @@ export default function FileComplaint() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+
+          {/* INCIDENT DATE */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-1 block">
+              Date of Incident
+            </label>
+            <input
+              type="date"
+              className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A]"
+              value={incidentDate}
+              onChange={(e) => setIncidentDate(e.target.value)}
+              required
+            />
+          </div>
 
           <select
             className="w-full border p-3 rounded-md focus:ring-2 focus:ring-[#1E3A8A] outline-none"
@@ -191,14 +197,22 @@ export default function FileComplaint() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-6 rounded-xl shadow-lg w-80 text-center">
             <h3 className="text-xl font-bold mb-3">Confirm Submission</h3>
-            <p className="mb-4 text-gray-700">Are you sure you want to submit this complaint?</p>
+            <p className="mb-4 text-gray-700">
+              Are you sure you want to submit this complaint?
+            </p>
 
             <div className="flex justify-between">
-              <button onClick={() => setShowPopup(false)} className="bg-gray-400 px-4 py-2 rounded text-white">
+              <button
+                onClick={() => setShowPopup(false)}
+                className="bg-gray-400 px-4 py-2 rounded text-white"
+              >
                 No
               </button>
 
-              <button onClick={submitComplaint} className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700">
+              <button
+                onClick={submitComplaint}
+                className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700"
+              >
                 Yes, Submit
               </button>
             </div>
