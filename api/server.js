@@ -12,6 +12,11 @@ import adminRoutes from "./routes/adminRoutes.js";
 dotenv.config();
 connectDB();
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // console.log("Loaded SECRET_KEY:", process.env.SECRET_KEY);
 // console.log("Loaded JWT_SECRET:", process.env.JWT_SECRET);
@@ -28,6 +33,17 @@ app.use("/api/complaints", complaintRoutes);
 app.use("/api/support", supportRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/uploads", express.static("uploads"));
+app.get("/guidelines/:file", (req, res) => {
+  const file = req.params.file;
+  const filePath = path.join("guidelines", file);
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "inline");
+
+  res.sendFile(path.resolve(filePath));
+});
+
+
 
 
 app.listen(process.env.PORT, () => {

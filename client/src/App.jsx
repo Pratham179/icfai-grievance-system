@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import AdminCallRequest from "./pages/AdminCallRequest";
 import Footer from "./components/Footer";
+import ImportantDocuments from "./pages/ImportantDocumnets";
 
 
 export default function App() {
@@ -32,6 +33,8 @@ export default function App() {
         <Route path="/timeline" element={<Timeline />} />
         <Route path="/request-call" element={<RequestCall />} />
         <Route path="/posh" element={<POSH />} />
+        <Route path="/important-docs" element={<ImportantDocuments />} />
+
 
         <Route
           path="/dashboard"

@@ -54,6 +54,10 @@ export default function Navbar() {
                   >
                     Dashboard
                   </Link>
+                  <Link to="/important-docs" className="hover:text-blue-600">
+                    Important Documents
+                  </Link>
+
                   <Link
                     to="/request-call"
                     className="hover:text-gray-300 transition"

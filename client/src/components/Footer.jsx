@@ -50,6 +50,9 @@ export default function Footer() {
               <a href="/faq" className="hover:text-blue-400 transition">FAQs</a>
             </li>
             <li>
+              <a href="/important-docs" className="hover:text-blue-400 transition">Important Documnets</a>
+            </li>
+            <li>
               <a href="/request-call" className="hover:text-blue-400 transition">Request a Call</a>
             </li>
             <li>
