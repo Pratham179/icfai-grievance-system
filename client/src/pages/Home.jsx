@@ -5,7 +5,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <div className="text-center mb-14 bg-gradient-to-br from-blue-50 to-blue-100 p-10 rounded-xl shadow-sm">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-4">
-          ICFAI University Grievance Redressal Portal
+          IFHE University Grievance Redressal Portal
         </h1>
 
         <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
@@ -75,7 +75,7 @@ export default function Home() {
         <p>
           This portal complies with the 
           <strong> Sexual Harassment of Women at Workplace Act, 2013</strong> 
-          and ICFAI University internal policies.
+          and IFHE University internal policies.
         </p>
         <p className="mt-2">
           Your confidentiality and safety are our top priority.

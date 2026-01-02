@@ -25,7 +25,7 @@ export default function Navbar() {
           to="/"
           className="text-xl font-bold tracking-wide hover:text-gray-200 transition"
         >
-          ICFAI Grievance Portal
+          IFHE Grievance Portal
         </Link>
 
         {/* NAV LINKS */}

@@ -24,13 +24,13 @@ export default function Footer() {
           </h3>
 
           <p className="text-sm flex items-center gap-2">
-            📧 <span className="text-blue-300">poshcommittee@icfai.edu</span>
+            📧 <span className="text-blue-300">poshcommittee@IFHE.edu</span>
           </p>
 
           <p className="text-sm mt-1 flex items-center gap-2">📞 +91 98765 43210</p>
 
           <p className="text-sm mt-1 flex items-center gap-2">
-            🏫 ICFAI University, India
+            🏫 IFHE University, India
           </p>
 
           {/* Highlight Box */}
@@ -65,7 +65,7 @@ export default function Footer() {
 
       {/* FOOTER BOTTOM BAR */}
       <div className="border-t border-gray-700 py-4 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} ICFAI University — Internal Grievance Redressal System  
+        © {new Date().getFullYear()} IFHE University — Internal Grievance Redressal System  
         <br />
         Designed for confidential and secure reporting.
       </div>

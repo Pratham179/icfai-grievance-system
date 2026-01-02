@@ -77,7 +77,7 @@ export default function FileComplaint() {
             </p>
 
             <div className="space-y-3 text-gray-700 text-sm leading-relaxed">
-              <p><strong>Declaration:</strong> This portal is to report genuine grievances under ICFAI University.</p>
+              <p><strong>Declaration:</strong> This portal is to report genuine grievances under IFHE University.</p>
               <p>I understand that I must submit only correct, complete and truthful information.</p>
               <p>I acknowledge that no details have been concealed, misrepresented, or falsified.</p>
             </div>
@@ -163,15 +163,15 @@ export default function FileComplaint() {
             onChange={(e) => setBranch(e.target.value)}
             required
           >
-            <option value="">Select ICFAI Branch</option>
-            <option value="Hyderabad">ICFAI University, Hyderabad</option>
-            <option value="Dehradun">ICFAI University, Dehradun</option>
-            <option value="Jaipur">ICFAI University, Jaipur</option>
-            <option value="Tripura">ICFAI University, Tripura</option>
-            <option value="Sikkim">ICFAI University, Sikkim</option>
-            <option value="Jharkhand">ICFAI University, Jharkhand</option>
-            <option value="Raipur">ICFAI University, Raipur</option>
-            <option value="Mizoram">ICFAI University, Mizoram</option>
+            <option value="">Select IFHE Branch</option>
+            <option value="Hyderabad">IFHE University, Hyderabad</option>
+            <option value="Dehradun">IFHE University, Dehradun</option>
+            <option value="Jaipur">IFHE University, Jaipur</option>
+            <option value="Tripura">IFHE University, Tripura</option>
+            <option value="Sikkim">IFHE University, Sikkim</option>
+            <option value="Jharkhand">IFHE University, Jharkhand</option>
+            <option value="Raipur">IFHE University, Raipur</option>
+            <option value="Mizoram">IFHE University, Mizoram</option>
           </select>
 
           <select
@@ -180,12 +180,14 @@ export default function FileComplaint() {
             required
           >
             <option value="">Select Complaint Category</option>
-            <option value="Academic Issue">Academic Issue</option>
-            <option value="Faculty Behaviour">Faculty Behaviour</option>
-            <option value="Harassment">Harassment</option>
-            <option value="POSH">POSH Related</option>
-            <option value="Hostel Issue">Hostel Issue</option>
-            <option value="Infrastructure">Infrastructure Problem</option>
+            <option value="Verbal"> Verbal</option>
+            <option value="Non Verbal">Non Verbal</option>
+            <option value="Physical">Physical</option>
+            <option value="Cyber">Cyber</option>
+            <option value="Psychological">Psychological</option>
+            <option value="Visual">Visual</option>
+            <option value="Hostile Work Environment">Hostile Work Environment</option>
+            <option value="Quid-Pro-Quo">Quid-Pro-Quo</option>
             <option value="Other">Other</option>
           </select>
 
